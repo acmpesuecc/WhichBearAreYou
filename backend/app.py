@@ -48,7 +48,7 @@ def bear_hunt():
 
 @app.route("/api/url/bear_base64", methods=["POST"])
 @cross_origin()
-def bear_hunt():
+def bear_hunt_base64():
     data = request.json
     ans = search_by_base64_image(data["img_base64_string"])
     print(ans)
