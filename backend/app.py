@@ -11,6 +11,8 @@ cors = CORS(app)
 
 learn_inf = load_learner("bears.pkl")
 
+# Takes a b64 encoded string, opens an empty/existingfile called temp.jpg, writes the image to that file then predicts using that same image.
+
 
 def search_by_base64_image(b64imgstring):
     """
