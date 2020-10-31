@@ -35,15 +35,41 @@ function App() {
     setBear(res[0]);
   }
 
+  return (
+    <div className="App">
+      <header className="App-header">
+        <p>
+          Enter a URL!
+        </p>
 
-  function viewResults() {
-    if(viewres){
-      return(
-        <>
+
+
+        <form onSubmit={(e) => { e.preventDefault(); sendLink()}}>
+          <input type="url" onChange={(e) => { e.preventDefault(); setUrl(e.target.value)}}></input>
+          <input type="submit"></input>
+        </form>
+        <ImagePreview url ={url} />
+        <ViewResults
+            viewres = {viewres}
+            bear = {bear}
+            blackbear={blackbear}
+            grizzlybear={grizzlybear}
+            teddybear={teddybear}
+        />
+      </header>
+    </div>
+  );
+}
+
+// Component to display the results when user input is send to the model.
+const ViewResults = ({viewres,bear,blackbear,grizzlybear,teddybear}) => {
+  if (!viewres) return null;
+  return (
+    <>
+    <h4>Results!</h4>
       <p>
         You are a {bear} bear!
       </p>
-      <img src={url}></img>
       <h6>
       Black Bear: {blackbear}
       </h6>
@@ -53,25 +79,21 @@ function App() {
       <h6>
       Teddy Bear: {teddybear}
       </h6>
-      </>
-    )
-    }
-  }
-
-  return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Enter a URL!
-        </p>
-        <form onSubmit={(e) => { e.preventDefault(); sendLink()}}>
-          <input type="url" onChange={(e) => { e.preventDefault(); setUrl(e.target.value)}}></input>
-          <input type="submit"></input>
-        </form>
-        {viewResults()}
-      </header>
-    </div>
-  );
+    </>
+  )
 }
 
+// Component that returns the preview of the given image
+const ImagePreview = ({url}) => {
+  if (!url)
+    return null;
+
+  // renders an error gif when an invalid image link is pasted
+  const default_URL = "https://media0.giphy.com/media/eNdTUcTWKL7O0UvonE/giphy.gif"
+  return (
+    <div className = "img-preview" >
+      <img src = {url} onError = {(e)=>{e.target.src = default_URL }} height="150px" width="150px" />
+    </div>
+  )
+}
 export default App;
